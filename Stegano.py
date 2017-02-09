@@ -1,6 +1,7 @@
 import binascii
 import numpy as np
 from PIL import Image
+import sys
 
 
 class Stegano:
@@ -20,14 +21,20 @@ class Stegano:
         n = len(hex_string)
         return binascii.unhexlify(hex_string.zfill(n + (n & 1)))
 
-    def text_to_bits(self, text, encoding='utf-8', errors='surrogatepass'):
-        bits = bin(int(binascii.hexlify(
-            text.encode(encoding, errors)), 16))[2:]
-        return bits.zfill(8 * ((len(bits) + 7) // 8))
+    def text_to_bits(self, message):
+        result = []
+        for c in message:
+            bits = bin(ord(c))[2:]
+            bits = '00000000'[len(bits):] + bits
+            result.extend([int(b) for b in bits])
+        return result
 
-    def text_from_bits(self, bits, encoding='utf-8', errors='surrogatepass'):
-        n = int(bits, 2)
-        return self.int2bytes(n).decode(encoding, errors)
+    def text_from_bits(self, bits):
+        chars = []
+        for b in range(len(bits) / 8):
+            byte = bits[b * 8:(b + 1) * 8]
+            chars.append(chr(int(''.join([str(bit) for bit in byte]), 2)))
+        return ''.join(chars)
 
     def set_bit(self, number, index, flag):  # index starts from 0 where 0 is LSB
         # Compute mask, an integer with just bit 'index' set.
@@ -39,9 +46,9 @@ class Stegano:
             number |= mask
         return number
 
-    def hide_in_lsb(self, path, message):
+    def hide_in_pixel(self, path, message, index):
         matrix = self.image_to_matrix(path)
-        bit_message = str(self.text_to_bits(message))
+        bit_message = self.text_to_bits(message)
         message_size = len(bit_message)
         message_counter = 0
         finish_flag = False
@@ -53,12 +60,12 @@ class Stegano:
                     if(message_counter == message_size):
                         finish_flag = True
                         break
-                    stegano_bit = True if ord(
-                        bit_message[message_counter]) == 49 else False
+                    stegano_bit = True if bit_message[
+                        message_counter] == 1 else False
                     message_counter += 1
                     # Setting LSB to 1 or 0
                     matrix[row_idx][pixel_idx][
-                        color_idx] = self.set_bit(color, 0, stegano_bit)
+                        color_idx] = self.set_bit(color, index, stegano_bit)
 
                 if(finish_flag == True):
                     break
@@ -68,24 +75,47 @@ class Stegano:
         stegano_image = self.matrix_to_image(matrix)
         return stegano_image
 
+    # High Time Complexity To Be optimized
     def extract_info_from_lsb(self, path):
-        lsb_message_list = []
+        lsb_message_result = []
         matrix = self.image_to_matrix(path)
-        count = 0
+
         for row in matrix:
+            lsb_message_list = []
             for pixel in row:
                 for color in pixel:
                     lsb = color & 1
                     lsb_message_list.append(lsb)
 
-        lsb_message = ''.join(str(x) for x in lsb_message_list)
-        #lsb_message = self.text_from_bits(lsb_message)
-        return lsb_message
+            lsb_message_result.append(lsb_message_list)
 
+        for i, lsb_message in enumerate(lsb_message_result):
+            lsb_message_result[i] = self.text_from_bits(lsb_message)
+        
+        return lsb_message_result
 
+    def hide_using_bpcs(self, carrier_path, message_path, index, color_index):
+        carrier_matrix = self.image_to_matrix(carrier_path)
+        message_matrix = self.image_to_matrix(message_path)
+
+        for row_index, row in enumerate(message_matrix):
+            for pixel_index, pixel in enumerate(row):
+                color = message_matrix[row_index][pixel_index][color_index]
+                msb = (color & 0xff) >> 7
+                carrier_pixel = carrier_matrix[
+                    row_index][pixel_index][color_index]
+                carrier_matrix[row_index][pixel_index][
+                    color_index] = self.set_bit(carrier_pixel, index, msb)
+
+        stegano_image = self.matrix_to_image(carrier_matrix)
+        return stegano_image
+
+sys.stdout = open('Images/output', 'w')
 obj = Stegano()
-image = obj.hide_in_lsb("Images/test.png", "Hello")
-matrix = obj.image_to_matrix("Images/crypto.png")
-print matrix
+# print obj.extract_info_from_lsb("Images/crypto.png")
+# image = obj.hide_in_pixel("Images/test.png", "Testing", 0)
+obj.hide_using_bpcs("Images/carrier.png", "Images/test.png", 0, 0)
+# matrix = obj.image_to_matrix("Images/crypto.png")
+# print matrix
 # image = obj.matrix_to_image(matrix)
 # print obj.image_to_matrix("Images/test.jpg")
