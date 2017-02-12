@@ -4,16 +4,16 @@ from PIL import Image
 import sys
 
 
-class Steganography:
+class ImageSteganography:
 
     def image_to_matrix(self, path):
         image = Image.open(path)
         matrix = np.array(image)
         return matrix
 
-    def matrix_to_image(self, matrix):
+    def matrix_to_image(self, matrix, output_image):
         image = Image.fromarray(matrix)
-        image.save('../Images/crypto.png')
+        image.save(output_image)
         return image
 
     def text_to_bits(self, message):
@@ -43,7 +43,7 @@ class Steganography:
             number |= mask
         return number
 
-    def hide_in_pixel(self, path, message, index):
+    def hide_in_pixel(self, path, message, index, output_image):
         matrix = self.image_to_matrix(path)
         bit_message = self.text_to_bits(message)
         message_size = len(bit_message)
@@ -69,7 +69,7 @@ class Steganography:
             if(finish_flag == True):
                 break
 
-        stegano_image = self.matrix_to_image(matrix)
+        stegano_image = self.matrix_to_image(matrix, output_image)
         return stegano_image
 
     def extract_info_from_lsb(self, path):
@@ -93,15 +93,15 @@ class Steganography:
         height, width, _ = secret_array.shape
         cover_plane = (cover_array[:height,:width,color_plane] & mask) + secret_bits
         cover_array[:height,:width,color_plane] = cover_plane
-        stego_image = self.matrix_to_image(cover_array)
+        stego_image = self.matrix_to_image(cover_array, cover_file)
         return stego_image
 
-    def extract_embedded_image(self, stego_file, color_plane, pixel_bit):
+    def extract_embedded_image(self, stego_file, color_plane, pixel_bit, output_image):
         stego_array = self.image_to_matrix(stego_file)
         change_index = [0, 1, 2]
         change_index.remove(color_plane)
         stego_array[..., change_index] = 0
         stego_array = ((stego_array >> pixel_bit) & 0x01) << 7
         print stego_array
-        exposed_secret = self.matrix_to_image(stego_array)
+        exposed_secret = self.matrix_to_image(stego_array, output_image)
         return exposed_secret
