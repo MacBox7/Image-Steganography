@@ -1,0 +1,22 @@
+{
+  "name": "steganographer",
+  "version": "1.0.0",
+  "description": "A basic tool for embedding information into images",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "repository": "https://github.com/MacBox7/Image-Steganography",
+  "keywords": [
+    "Electron",
+    "quick",
+    "start",
+    "tutorial",
+    "demo"
+  ],
+  "author": "Ankit Joshi",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^1.4.1"
+  }
+}
