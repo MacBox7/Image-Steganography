@@ -89,10 +89,11 @@ class ImageSteganography:
         # every bit except the one at `pixel_bit` position is 1
         mask = 0xff ^ (1 << pixel_bit)
         # shift the MSB of the secret to the `pixel_bit` position
-        secret_bits = ((secret_array[...,color_plane] >> 7) << pixel_bit)
+        secret_bits = ((secret_array[..., color_plane] >> 7) << pixel_bit)
         height, width, _ = secret_array.shape
-        cover_plane = (cover_array[:height,:width,color_plane] & mask) + secret_bits
-        cover_array[:height,:width,color_plane] = cover_plane
+        cover_plane = (cover_array[:height, :width,
+                                   color_plane] & mask) + secret_bits
+        cover_array[:height, :width, color_plane] = cover_plane
         stego_image = self.matrix_to_image(cover_array, cover_file)
         return stego_image
 
@@ -102,6 +103,5 @@ class ImageSteganography:
         change_index.remove(color_plane)
         stego_array[..., change_index] = 0
         stego_array = ((stego_array >> pixel_bit) & 0x01) << 7
-        print stego_array
         exposed_secret = self.matrix_to_image(stego_array, output_image)
         return exposed_secret

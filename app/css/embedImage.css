@@ -1,0 +1,29 @@
+#inputPanel {
+    background: #2b2e3b;
+    height: 100%;
+    width: 100%;
+}
+
+#img-vessel {
+    top:20vh;
+    left:20vh;
+}
+
+#img-carrier {
+    top: 20vh;
+    right: 20vh;
+}
+
+.image {
+    position: absolute;
+    height: 50vh;
+    width: 50vh;
+    cursor:pointer;
+    cursor:hand;
+    line-height: 50vh; /* Equals height of image */
+    text-align: center;
+    vertical-align: middle; /* Aligning vertically */
+    border: 1px solid #9feaf9;
+    color: #9feaf9;
+    font-size: 30px;
+}
