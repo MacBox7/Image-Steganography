@@ -46,19 +46,24 @@ if args.function == "lsbhide":
     parser.add_argument('-o', '--output')
     args = parser.parse_args(sub_args)
     hide_pixel(args.input, args.message, args.index, args.output)
+    print 'SUCCESS'
 
 elif args.function == "extractlsb":
     parser.add_argument('-i', '--input')
     args = parser.parse_args(sub_args)
     # Output to be redirected
     extract_info_from_lsb(args.input)
+    print 'SUCCESS'
+
 elif args.function == "embed":
     parser.add_argument('-m', '--message')
     parser.add_argument('-I', '--index', type=int)
     parser.add_argument('-i', '--input')
     parser.add_argument('-p', '--plane', type=int)
     args = parser.parse_args(sub_args)
-    embed(args.input, args.message, args.plane, args.index)
+    embed(args.input[1:], args.message[1:], args.plane, args.index)
+    print 'SUCCESS'
+
 elif args.function == "extractembedded":
     parser.add_argument('-p', '--plane', type=int)
     parser.add_argument('-I', '--index', type=int)
@@ -66,3 +71,4 @@ elif args.function == "extractembedded":
     parser.add_argument('-o', '--output')
     args = parser.parse_args(sub_args)
     extract_embedded_image(args.input, args.plane, args.index, args.output)
+    print 'SUCCESS'

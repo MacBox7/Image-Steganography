@@ -8,11 +8,18 @@
 
 <body>
     <div class="container" id="inputPanel">
-        <div class="col-xs-6">
+        <div class="col-xs-12">
+            <p id='paragraph-colorPlane'>
+                Select Color Plane:
+                <input type="radio" name="colorPlane" value=0>Red
+                <input type="radio" name="colorPlane" value=1>Green
+                <input type="radio" name="colorPlane" value=2>Blue
+            </p>
             <img id="img-carrier" class="image" src="" alt="Upload Carrier Image">
-        </div>
-        <div class="col-xs-6">
-            <img id="img-vessel" class="image" src="" alt="Upload Vessel Image">
+            <img id="img-message" class="image" src="" alt="Upload Message Image">
+            <img id="img-encrypted" class="image" src="" alt="Encrypted Image">
+            <button id="btn-merge">Merge</button>
+            <button id="btn-download">Download</button>
         </div>
     </div>
     <script src="../../bower_components/gsap/src/uncompressed/TweenMax.js"></script>
