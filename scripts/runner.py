@@ -61,7 +61,7 @@ elif args.function == "embed":
     parser.add_argument('-i', '--input')
     parser.add_argument('-p', '--plane', type=int)
     args = parser.parse_args(sub_args)
-    embed(args.input[1:], args.message[1:], args.plane, args.index)
+    embed(args.input[1:], args.message[1:], int(args.plane), int(args.index))
     print 'SUCCESS'
 
 elif args.function == "extractembedded":

@@ -1,6 +1,7 @@
 const electron = require('electron')
 var fs = require('fs');
 var remote = electron.remote
+const app = remote.app
 var dialog = remote.dialog
 
 module.exports = {
@@ -24,13 +25,11 @@ module.exports = {
                 alert('File not saved');
                 return;
             }
-            fs.createReadStream(filePath, function () {
-                if (filePath === undefined) {
-                    alert('File not saved')
-                }
-            }).pipe(fs.createWriteStream(fileName, function () {
-                alert('File saved successfully')
-            }))
+            fs.createReadStream(filePath).pipe(fs.createWriteStream(fileName))
         })
+    },
+
+    getAppPath: function () {
+        return app.getAppPath()
     }
 }
