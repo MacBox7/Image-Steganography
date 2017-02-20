@@ -1,0 +1,48 @@
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../../bower_components/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="../css/extractImage.css">
+</head>
+
+<body>
+    <div class="container" id="inputPanel">
+        <div class="col-xs-12" id="panel-uploadImage">
+            <img class='image' id="img-carrier" src="" alt="Upload Carrier Image">
+            <button id="btn-extract">Extract</button>
+        </div>
+        <div id="panel-carousel" class="carousel slide" data-ride="carousel">
+            <!-- Wrapper for slides -->
+            <div class="carousel-inner" role="listbox">
+                <div class="item active">
+                    <img class="img-plane" alt="Test">
+                </div>
+            </div>
+            <!-- Left and right controls -->
+            <a class="left carousel-control" href="#panel-carousel" role="button" data-slide="prev" id="btn-carouselLeft">
+                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="right carousel-control" href="#panel-carousel" role="button" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+        <div id="panel-imageInfo">
+            <p>Plane: Red</p>
+            <p>Index: 0</p>
+        </div>
+    </div>
+    <div id="panel-load">
+        <div id="parent-loader">
+            <img src="../resources/gears.svg">
+        </div>
+    </div>
+    <script src="../../bower_components/gsap/src/uncompressed/TweenMax.js"></script>
+    <script src="../../bower_components/jquery/dist/jquery.js"></script>
+    <script src="../../bower_components/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="../js/extractImage.js"></script>
+</body>
+
+</html>

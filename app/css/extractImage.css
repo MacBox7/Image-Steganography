@@ -1,0 +1,106 @@
+button:focus {
+    outline: 0;
+}
+
+#inputPanel {
+    background: #2b2e3b;
+    height: 100%;
+    display: block;
+    width: 100%;
+    position: fixed;
+    z-index: 1;
+}
+
+#panel-load {
+    position: fixed;
+    height: 100%;
+    opacity: 0;
+    width: 100%;
+    background: #03030b;
+    z-index: -1;
+}
+
+.image {
+    position: absolute;
+    height: 50vh;
+    width: 50vh;
+    cursor: pointer;
+    cursor: hand;
+    line-height: 50vh;
+    /* Equals height of image */
+    text-align: center;
+    vertical-align: middle;
+    /* Aligning vertically */
+    border: 1px solid #9feaf9;
+    color: #9feaf9;
+    font-size: 1.75vw;
+}
+
+#img-carrier {
+    top: 20vh;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#btn-extract {
+    position: absolute;
+    top: 80vh;
+    right: 0;
+    left: 0;
+    margin-left: auto;
+    margin-right: auto;
+    height: 5vh;
+    width: 18vh;
+    border-radius: 2vh;
+    font-size: 1.5vw;
+    border: 1px solid #9feaf9;
+    color: #9feaf9;
+    background: none;
+}
+
+#panel-uploadImage {
+    display: block;
+}
+
+#panel-carousel {
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    top: 12vh;
+    display: none;
+    color: white;
+    height: 70vh;
+    width: 100vh;
+}
+
+.img-plane {
+    height: 100% !important;
+    width: 100%;
+}
+
+#parent-loader {
+    display: inline-block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 1000;
+    transform: translate(-50%, -50%);
+}
+
+#parent-loader>img {
+    transform: scale(1.7)
+}
+#panel-imageInfo {
+    position: absolute;
+    top: 12vh;
+    display: none;
+    left: 15vh;
+}
+#panel-imageInfo>p {
+    font-size: 3vh;
+    color: #9feaf9;
+}

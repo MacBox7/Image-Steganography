@@ -12,7 +12,6 @@ var panelColorIndex = document.getElementById('panel-colorIndex')
 
 var carrierImagePath, messageImagePath
 var colorIndex, colorPlane
-var errorMessage
 
 messageImage.addEventListener('click', function () {
     utility.openFile(function (filePath) {
@@ -61,13 +60,13 @@ carrierImage.addEventListener('mouseout', function () {
 inputPanel.addEventListener('mouseover', function () {
 
     TweenMax.set(mergeButton, {
-        clearProps: 'all'
+        clearProps: 'height, width, boxShadow'
     })
     TweenMax.set(carrierImage, {
-        clearProps: 'all'
+        clearProps: 'height, width, boxShadow'
     })
     TweenMax.set(messageImage, {
-        clearProps: 'all'
+        clearProps: 'height, width, boxShadow'
     })
 })
 
@@ -109,9 +108,6 @@ mergeButton.addEventListener('click', function () {
     colorIndex = getRadioVal('colorIndex')
     colorPlane = getRadioVal('colorPlane')
 
-    colorIndex = parseInt(colorIndex)
-    colorPlane = parseInt(colorPlane)
-
     if (carrierImagePath === undefined) {
         TweenMax.to(carrierImage, 0.1, {
             x: "+=20",
@@ -149,6 +145,9 @@ mergeButton.addEventListener('click', function () {
         })
         return
     }
+
+    colorIndex = parseInt(colorIndex)
+    colorPlane = parseInt(colorPlane)
 
     var options = {
         mode: 'text',

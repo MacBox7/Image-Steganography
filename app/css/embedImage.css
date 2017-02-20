@@ -10,11 +10,13 @@ button:focus {
 
 #img-message {
     top: 20vh;
+    display: block;
     right: 13%;
 }
 
 #img-carrier {
     top: 20vh;
+    display: block;
     right: 60%;
 }
 
@@ -42,11 +44,15 @@ button:focus {
 #btn-merge {
     position: absolute;
     top: 80vh;
-    right: 45%;
+    right: 0;
+    left: 0;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
     height: 5vh;
     width: 18vh;
     border-radius: 2vh;
-    font-size: 2em;
+    font-size: 1.5vw;
     border: 1px solid #9feaf9;
     color: #9feaf9;
     background: none;
@@ -55,7 +61,10 @@ button:focus {
 #btn-download {
     position: absolute;
     top: 80vh;
-    right: 45%;
+    right: 0;
+    left: 0;
+    margin-left: auto;
+    margin-right: auto;
     height: 5vh;
     display: none;
     width: 18vh;

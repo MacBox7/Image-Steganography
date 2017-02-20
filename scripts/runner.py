@@ -70,5 +70,5 @@ elif args.function == "extractembedded":
     parser.add_argument('-i', '--input')
     parser.add_argument('-o', '--output')
     args = parser.parse_args(sub_args)
-    extract_embedded_image(args.input, args.plane, args.index, args.output)
+    extract_embedded_image(args.input[1:], args.plane, args.index, args.output[1:])
     print 'SUCCESS'
