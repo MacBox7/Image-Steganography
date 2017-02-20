@@ -94,12 +94,14 @@ button:focus {
 #parent-loader>img {
     transform: scale(1.7)
 }
+
 #panel-imageInfo {
     position: absolute;
     top: 12vh;
     display: none;
     left: 15vh;
 }
+
 #panel-imageInfo>p {
     font-size: 3vh;
     color: #9feaf9;
