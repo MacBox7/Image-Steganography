@@ -8,6 +8,7 @@ var uploadImagePanel = document.getElementById('panel-uploadImage')
 var carouselPanel = document.getElementById('panel-carousel')
 var carrierImage = document.getElementById('img-carrier')
 var extractButton = document.getElementById('btn-extract')
+var downloadButton = document.getElementById('btn-download')
 
 var carrierImagePath, currentScroll = 0
 
@@ -76,6 +77,26 @@ extractButton.addEventListener('click', function () {
     initializeCarousel(stopLoading)
 })
 
+downloadButton.addEventListener('click', function () {
+    var activeCarouselImagePath = $('div.active').find('img').attr('src')
+    utility.saveFile(activeCarouselImagePath.substring(0, activeCarouselImagePath.length-1))
+})
+
+downloadButton.addEventListener('mouseover', function () {
+    TweenMax.to(this, 0.1, {
+        height: '+=5',
+        width: '+=5',
+        boxShadow: "0 0 5px 5px #9feaf9",
+        ease: Linear.easeNone
+    })
+})
+
+downloadButton.addEventListener('mouseout', function () {
+    TweenMax.set(this, {
+        clearProps: 'height, width, boxShadow'
+    })
+})
+
 $(window).bind('mousewheel', function (event) {
     if (event.originalEvent.wheelDelta >= 0) {
         if ($(carouselPanel).css('display') == 'block') {
@@ -112,6 +133,7 @@ function initializeCarousel(callback) {
         uploadImagePanel.style.display = 'none'
         carouselPanel.style.display = 'block'
         imageInfoPanel.style.display = 'block'
+        downloadButton.style.display = 'block'
         callback()
     })
 }
@@ -200,9 +222,6 @@ function setImageInfo(carousalIndex) {
     var planeIndex = parseInt(carousalIndex / 8)
     var bitIndex = carousalIndex % 8
     var planeName = getPlaneName(planeIndex)
-    console.log(planeIndex)
-    console.log(bitIndex)
-    console.log(planeName)
     $(imageInfoPanel).empty()
     $(imageInfoPanel).append('<p>Plane: ' + planeName + '</p>' + '<p>Index: ' + bitIndex + '</p>')
 }
