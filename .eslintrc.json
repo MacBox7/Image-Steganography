@@ -12,5 +12,12 @@
     "no-use-before-define": ["error", {
         "functions": false,
         "classes": false
-    }]
+    }],
+    "rules": {
+        "no-var": 0,
+        "require-jsdoc": 0,
+        "max-len": "off",
+        "space-before-function-paren": "off",
+        "eol-last": "off"
+    }
 }

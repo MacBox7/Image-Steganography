@@ -1,26 +1,28 @@
-let utility = require('../js/utility');
-let PythonShell = require('python-shell');
+var utility = require('../js/utility');
+var PythonShell = require('python-shell');
 
-let inputPanel = document.getElementById('inputPanel');
-let messageImage = document.getElementById('img-message');
-let carrierImage = document.getElementById('img-carrier');
-let encryptedImage = document.getElementById('img-encrypted');
-let mergeButton = document.getElementById('btn-merge');
-let downloadButton = document.getElementById('btn-download');
-let panelColorPlane = document.getElementById('panel-colorPlane');
-let panelColorIndex = document.getElementById('panel-colorIndex');
+var inputPanel = document.getElementById('inputPanel');
+var messageImage = document.getElementById('img-message');
+var carrierImage = document.getElementById('img-carrier');
+var encryptedImage = document.getElementById('img-encrypted');
+var mergeButton = document.getElementById('btn-merge');
+var downloadButton = document.getElementById('btn-download');
+var panelColorPlane = document.getElementById('panel-colorPlane');
+var panelColorIndex = document.getElementById('panel-colorIndex');
 
-let carrierImagePath, messageImagePath;
-let colorIndex, colorPlane;
+var carrierImagePath;
+var messageImagePath;
+var colorIndex;
+var colorPlane;
 
-messageImage.addEventListener('click', function() {
-    utility.openFile(function(filePath) {
+messageImage.addEventListener('click', function () {
+    utility.openFile(function (filePath) {
         messageImage.src = filePath;
         messageImagePath = filePath;
     });
 });
 
-messageImage.addEventListener('mouseover', function() {
+messageImage.addEventListener('mouseover', function () {
     TweenMax.to(this, 0.1, {
         boxShadow: '0 0 10px 10px #9feaf9',
         height: '+=10',
@@ -29,20 +31,20 @@ messageImage.addEventListener('mouseover', function() {
     });
 });
 
-messageImage.addEventListener('mouseout', function() {
+messageImage.addEventListener('mouseout', function () {
     TweenMax.set(this, {
         clearProps: 'all',
     });
 });
 
-carrierImage.addEventListener('click', function() {
-    utility.openFile(function(filePath) {
+carrierImage.addEventListener('click', function () {
+    utility.openFile(function (filePath) {
         carrierImage.src = filePath;
         carrierImagePath = filePath;
     });
 });
 
-carrierImage.addEventListener('mouseover', function() {
+carrierImage.addEventListener('mouseover', function () {
     TweenMax.to(this, 0.1, {
         boxShadow: '0 0 10px 10px #9feaf9',
         height: '+=10',
@@ -51,13 +53,13 @@ carrierImage.addEventListener('mouseover', function() {
     });
 });
 
-carrierImage.addEventListener('mouseout', function() {
+carrierImage.addEventListener('mouseout', function () {
     TweenMax.set(this, {
         clearProps: 'all',
     });
 });
 
-inputPanel.addEventListener('mouseover', function() {
+inputPanel.addEventListener('mouseover', function () {
     TweenMax.set(mergeButton, {
         clearProps: 'height, width, boxShadow',
     });
@@ -69,11 +71,11 @@ inputPanel.addEventListener('mouseover', function() {
     });
 });
 
-downloadButton.addEventListener('click', function() {
+downloadButton.addEventListener('click', function () {
     utility.saveFile(carrierImagePath);
 });
 
-downloadButton.addEventListener('mouseover', function() {
+downloadButton.addEventListener('mouseover', function () {
     TweenMax.to(this, 0.1, {
         height: '+=5',
         width: '+=5',
@@ -82,13 +84,13 @@ downloadButton.addEventListener('mouseover', function() {
     });
 });
 
-downloadButton.addEventListener('mouseout', function() {
+downloadButton.addEventListener('mouseout', function () {
     TweenMax.set(this, {
         clearProps: 'height, width, boxShadow',
     });
 });
 
-mergeButton.addEventListener('mouseover', function() {
+mergeButton.addEventListener('mouseover', function () {
     TweenMax.to(this, 0.1, {
         height: '+=5',
         width: '+=5',
@@ -97,13 +99,13 @@ mergeButton.addEventListener('mouseover', function() {
     });
 });
 
-mergeButton.addEventListener('mouseout', function() {
+mergeButton.addEventListener('mouseout', function () {
     TweenMax.set(this, {
         clearProps: 'all',
     });
 });
 
-mergeButton.addEventListener('click', function() {
+mergeButton.addEventListener('click', function () {
     colorIndex = getRadioVal('colorIndex');
     colorPlane = getRadioVal('colorPlane');
 
@@ -148,13 +150,13 @@ mergeButton.addEventListener('click', function() {
     colorIndex = parseInt(colorIndex);
     colorPlane = parseInt(colorPlane);
 
-    let options = {
+    var options = {
         mode: 'text',
         scriptPath: utility.getAppPath() + '/scripts',
         args: ['embed', '-m ' + messageImagePath, '-I ' + colorIndex, '-i ' + carrierImagePath, '-p ' + colorPlane],
     };
 
-    PythonShell.run('runner.py', options, function(err, results) {
+    PythonShell.run('runner.py', options, function (err, results) {
         if (err)
             alert('The dimensions of carrier must be larger than message');
         else
@@ -163,10 +165,10 @@ mergeButton.addEventListener('click', function() {
 });
 
 function getRadioVal(name) {
-    let val;
-    let radios = document.getElementsByName(name);
+    var val;
+    var radios = document.getElementsByName(name);
 
-    for (let i = 0, len = radios.length; i < len; i++) {
+    for (var i = 0, len = radios.length; i < len; i++) {
         if (radios[i].checked) {
             val = radios[i].value;
             break;
@@ -205,7 +207,7 @@ function embedImage() {
         ease: Back.easeOut,
         width: '40vh',
         right: '40%',
-        onComplete: function() {
+        onCompvare: function () {
             TweenMax.set(messageImage, {
                 display: 'none',
             });
@@ -226,7 +228,7 @@ function embedImage() {
                 width: '50vh',
                 right: '37%',
                 boxShadow: '0 0 5px 5px #9feaf9',
-                onComplete: function() {
+                onCompvare: function () {
                     encryptedImage.src = carrierImagePath;
                     mergeButton.style.display = 'none';
                     downloadButton.style.display = 'block';

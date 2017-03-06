@@ -1,26 +1,26 @@
-let electron = require('electron');
-let fs = require('fs');
-let remote = electron.remote;
-let app = remote.app;
-let dialog = remote.dialog;
+var electron = require('electron');
+var fs = require('fs');
+var remote = electron.remote;
+var app = remote.app;
+var dialog = remote.dialog;
 
 module.exports = {
-    openFile: function(callback) {
+    openFile: function (callback) {
         dialog.showOpenDialog({
             filters: [{
                 name: 'Images',
                 extensions: ['jpg', 'png', 'bmp'],
             }],
 
-        }, function(fileNames) {
+        }, function (fileNames) {
             if (fileNames === undefined) return;
-            let filePath = fileNames[0];
+            var filePath = fileNames[0];
             return callback(filePath);
         });
     },
 
-    saveFile: function(filePath) {
-        dialog.showSaveDialog(function(fileName) {
+    saveFile: function (filePath) {
+        dialog.showSaveDialog(function (fileName) {
             if (fileName === undefined) {
                 alert('File not saved');
                 return;
@@ -30,7 +30,7 @@ module.exports = {
         });
     },
 
-    getAppPath: function() {
+    getAppPath: function () {
         return app.getAppPath();
     },
 };

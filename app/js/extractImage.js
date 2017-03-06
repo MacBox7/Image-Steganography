@@ -1,18 +1,17 @@
-let utility = require('../js/utility');
-let PythonShell = require('python-shell');
+var utility = require('../js/utility');
+var PythonShell = require('python-shell');
 
-let inputPanel = document.getElementById('inputPanel');
-let loadingPanel = document.getElementById('panel-load');
-let imageInfoPanel = document.getElementById('panel-imageInfo');
-let uploadImagePanel = document.getElementById('panel-uploadImage');
-let carouselPanel = document.getElementById('panel-carousel');
-let carrierImage = document.getElementById('img-carrier');
-let extractButton = document.getElementById('btn-extract');
-let downloadButton = document.getElementById('btn-download');
+var inputPanel = document.getElementById('inputPanel');
+var loadingPanel = document.getElementById('panel-load');
+var imageInfoPanel = document.getElementById('panel-imageInfo');
+var uploadImagePanel = document.getElementById('panel-uploadImage');
+var carouselPanel = document.getElementById('panel-carousel');
+var carrierImage = document.getElementById('img-carrier');
+var extractButton = document.getElementById('btn-extract');
+var downloadButton = document.getElementById('btn-download');
 
-let carrierImagePath, currentScroll = 0;
-
-let imageURL = [];
+var carrierImagePath;
+var imageURL = [];
 
 carrierImage.addEventListener('click', function () {
   utility.openFile(function (filePath) {
@@ -76,7 +75,7 @@ extractButton.addEventListener('click', function () {
 });
 
 downloadButton.addEventListener('click', function () {
-  let activeCarouselImagePath = $('div.active').find('img').attr('src');
+  var activeCarouselImagePath = $('div.active').find('img').attr('src');
   utility.saveFile(activeCarouselImagePath.substring(0, activeCarouselImagePath.length - 1));
 });
 
@@ -108,7 +107,7 @@ $(window).bind('mousewheel', function (event) {
 });
 
 setInterval(function () {
-  let carousalIndex = $('div.active').index() % 24;
+  var carousalIndex = $('div.active').index() % 24;
   setImageInfo(carousalIndex);
 }, 100);
 
@@ -117,7 +116,7 @@ function initializeCarousel(callback) {
     $('.carousel-indicators').empty();
     $('.carousel-inner').empty();
 
-    for (let i = 0; i < imageURL.length; i++) {
+    for (var i = 0; i < imageURL.length; i++) {
       $('<div class="item"><img src="' + imageURL[i] + ' " class="img-plane" ></div>').appendTo('.carousel-inner');
     }
 
@@ -135,14 +134,14 @@ function initializeCarousel(callback) {
 }
 
 function getColorPlanes(callback) {
-  let colorPlane = 0;
+  var colorPlane = 0;
   loopColorPlanes(colorPlane, function () {
     callback();
   });
 }
 
 function loopColorPlanes(colorPlane, callback) {
-  let colorIndex = 0;
+  var colorIndex = 0;
   loopColorIndex(colorIndex, colorPlane, function () {
     colorPlane++;
     if (colorPlane < 3) {
@@ -165,8 +164,8 @@ function loopColorIndex(colorIndex, colorPlane, callback) {
 }
 
 function processColorPlane(colorIndex, colorPlane, carrierImagePath, callback) {
-  let outputImagePath = utility.getAppPath() + '/Images/' + colorPlane.toString() + colorIndex.toString() + '.png';
-  let options = {
+  var outputImagePath = utility.getAppPath() + '/Images/' + colorPlane.toString() + colorIndex.toString() + '.png';
+  var options = {
     mode: 'text',
     scriptPath: utility.getAppPath() + '/scripts',
     args: ['extractembedded', '-o ' + outputImagePath, '-I ' + colorIndex, '-i ' + carrierImagePath, '-p ' + colorPlane],
@@ -214,9 +213,9 @@ function getPlaneName(colorPlane) {
 }
 
 function setImageInfo(carousalIndex) {
-  let planeIndex = parseInt(carousalIndex / 8);
-  let bitIndex = carousalIndex % 8;
-  let planeName = getPlaneName(planeIndex);
+  var planeIndex = parseInt(carousalIndex / 8);
+  var bitIndex = carousalIndex % 8;
+  var planeName = getPlaneName(planeIndex);
   $(imageInfoPanel).empty();
   $(imageInfoPanel).append('<p>Plane: ' + planeName + '</p>' + '<p>Index: ' + bitIndex + '</p>');
 }
