@@ -21,7 +21,7 @@ function createWindow() {
 
   // and load the index.html of the app.
   mainWindow.loadURL(url.format({
-    pathname: path.join(__dirname, 'app/html/extractImage.html'),
+    pathname: path.join(__dirname, 'app/html/embedImage.html'),
     protocol: 'file:',
     slashes: true
   }))

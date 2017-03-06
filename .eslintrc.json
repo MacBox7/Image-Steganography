@@ -1,0 +1,16 @@
+{
+    "extends": "google",
+    "globals": {
+        "document": true,
+        "foo": true,
+        "window": true,
+        "TweenMax": true,
+        "Linear": true,
+        "Back": true,
+        "$": true
+    },
+    "no-use-before-define": ["error", {
+        "functions": false,
+        "classes": false
+    }]
+}
