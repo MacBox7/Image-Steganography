@@ -25,22 +25,22 @@ carrierImage.addEventListener('mouseover', function () {
     boxShadow: '0 0 10px 10px #9feaf9',
     height: '+=10',
     width: '+=10',
-    ease: Linear.easeNone,
+    ease: Linear.easeNone
   });
 });
 
 carrierImage.addEventListener('mouseout', function () {
   TweenMax.set(this, {
-    clearProps: 'all',
+    clearProps: 'all'
   });
 });
 
 inputPanel.addEventListener('mouseover', function () {
   TweenMax.set(extractButton, {
-    clearProps: 'all',
+    clearProps: 'all'
   });
   TweenMax.set(carrierImage, {
-    clearProps: 'all',
+    clearProps: 'all'
   });
 });
 
@@ -49,13 +49,13 @@ extractButton.addEventListener('mouseover', function () {
     height: '+=5',
     width: '+=5',
     boxShadow: '0 0 5px 5px #9feaf9',
-    ease: Linear.easeNone,
+    ease: Linear.easeNone
   });
 });
 
 extractButton.addEventListener('mouseout', function () {
   TweenMax.set(this, {
-    clearProps: 'all',
+    clearProps: 'all'
   });
 });
 
@@ -66,7 +66,7 @@ extractButton.addEventListener('click', function () {
       yoyo: true,
       repeat: 5,
       borderColor: '#800000',
-      boxShadow: '0 0 10px 10px #800000',
+      boxShadow: '0 0 10px 10px #800000'
     });
     return;
   }
@@ -84,13 +84,13 @@ downloadButton.addEventListener('mouseover', function () {
     height: '+=5',
     width: '+=5',
     boxShadow: '0 0 5px 5px #9feaf9',
-    ease: Linear.easeNone,
+    ease: Linear.easeNone
   });
 });
 
 downloadButton.addEventListener('mouseout', function () {
   TweenMax.set(this, {
-    clearProps: 'height, width, boxShadow',
+    clearProps: 'height, width, boxShadow'
   });
 });
 
@@ -183,20 +183,20 @@ function processColorPlane(colorIndex, colorPlane, carrierImagePath, callback) {
 function initiateLoading() {
   TweenMax.to(loadingPanel, 0.5, {
     alpha: 0.8,
-    zIndex: 999,
+    zIndex: 999
   });
   TweenMax.to(inputPanel, 0.5, {
-    alpha: 0.5,
+    alpha: 0.5
   });
 }
 
 function stopLoading() {
   TweenMax.to(inputPanel, 0.5, {
-    autoAlpha: 1,
+    autoAlpha: 1
   });
   TweenMax.to(loadingPanel, 0.5, {
     autoAlpha: 0,
-    zIndex: -1,
+    zIndex: -1
   });
 }
 

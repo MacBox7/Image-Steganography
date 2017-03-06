@@ -27,13 +27,13 @@ messageImage.addEventListener('mouseover', function () {
         boxShadow: '0 0 10px 10px #9feaf9',
         height: '+=10',
         width: '+=10',
-        ease: Linear.easeNone,
+        ease: Linear.easeNone
     });
 });
 
 messageImage.addEventListener('mouseout', function () {
     TweenMax.set(this, {
-        clearProps: 'all',
+        clearProps: 'all'
     });
 });
 
@@ -49,25 +49,25 @@ carrierImage.addEventListener('mouseover', function () {
         boxShadow: '0 0 10px 10px #9feaf9',
         height: '+=10',
         width: '+=10',
-        ease: Linear.easeNone,
+        ease: Linear.easeNone
     });
 });
 
 carrierImage.addEventListener('mouseout', function () {
     TweenMax.set(this, {
-        clearProps: 'all',
+        clearProps: 'all'
     });
 });
 
 inputPanel.addEventListener('mouseover', function () {
     TweenMax.set(mergeButton, {
-        clearProps: 'height, width, boxShadow',
+        clearProps: 'height, width, boxShadow'
     });
     TweenMax.set(carrierImage, {
-        clearProps: 'height, width, boxShadow',
+        clearProps: 'height, width, boxShadow'
     });
     TweenMax.set(messageImage, {
-        clearProps: 'height, width, boxShadow',
+        clearProps: 'height, width, boxShadow'
     });
 });
 
@@ -80,13 +80,13 @@ downloadButton.addEventListener('mouseover', function () {
         height: '+=5',
         width: '+=5',
         boxShadow: '0 0 5px 5px #9feaf9',
-        ease: Linear.easeNone,
+        ease: Linear.easeNone
     });
 });
 
 downloadButton.addEventListener('mouseout', function () {
     TweenMax.set(this, {
-        clearProps: 'height, width, boxShadow',
+        clearProps: 'height, width, boxShadow'
     });
 });
 
@@ -95,13 +95,13 @@ mergeButton.addEventListener('mouseover', function () {
         height: '+=5',
         width: '+=5',
         boxShadow: '0 0 5px 5px #9feaf9',
-        ease: Linear.easeNone,
+        ease: Linear.easeNone
     });
 });
 
 mergeButton.addEventListener('mouseout', function () {
     TweenMax.set(this, {
-        clearProps: 'all',
+        clearProps: 'all'
     });
 });
 
@@ -115,7 +115,7 @@ mergeButton.addEventListener('click', function () {
             yoyo: true,
             repeat: 5,
             borderColor: '#800000',
-            boxShadow: '0 0 10px 10px #800000',
+            boxShadow: '0 0 10px 10px #800000'
         });
         return;
     } else if (messageImagePath === undefined) {
@@ -124,7 +124,7 @@ mergeButton.addEventListener('click', function () {
             yoyo: true,
             repeat: 5,
             borderColor: '#800000',
-            boxShadow: '0 0 10px 10px #800000',
+            boxShadow: '0 0 10px 10px #800000'
         });
         return;
     } else if (colorPlane === undefined) {
@@ -133,7 +133,7 @@ mergeButton.addEventListener('click', function () {
             yoyo: true,
             repeat: 5,
             borderColor: '#800000',
-            boxShadow: '0 0 10px 10px #800000',
+            boxShadow: '0 0 10px 10px #800000'
         });
         return;
     } else if (colorIndex === undefined) {
@@ -142,7 +142,7 @@ mergeButton.addEventListener('click', function () {
             yoyo: true,
             repeat: 5,
             borderColor: '#800000',
-            boxShadow: '0 0 10px 10px #800000',
+            boxShadow: '0 0 10px 10px #800000'
         });
         return;
     }
@@ -153,7 +153,7 @@ mergeButton.addEventListener('click', function () {
     var options = {
         mode: 'text',
         scriptPath: utility.getAppPath() + '/scripts',
-        args: ['embed', '-m ' + messageImagePath, '-I ' + colorIndex, '-i ' + carrierImagePath, '-p ' + colorPlane],
+        args: ['embed', '-m ' + messageImagePath, '-I ' + colorIndex, '-i ' + carrierImagePath, '-p ' + colorPlane]
     };
 
     PythonShell.run('runner.py', options, function (err, results) {
@@ -184,11 +184,11 @@ function embedImage() {
     carrierImage.alt = '';
 
     TweenMax.to(panelColorIndex, 1, {
-        autoAlpha: 0,
+        autoAlpha: 0
     });
 
     TweenMax.to(panelColorPlane, 1, {
-        autoAlpha: 0,
+        autoAlpha: 0
     });
 
     TweenMax.to(messageImage, 1, {
@@ -196,7 +196,7 @@ function embedImage() {
         top: '40vh',
         ease: Back.easeOut,
         width: '40vh',
-        right: '40%',
+        right: '40%'
     });
 
     TweenMax.fromTo(carrierImage, 1, {
@@ -207,18 +207,18 @@ function embedImage() {
         ease: Back.easeOut,
         width: '40vh',
         right: '40%',
-        onCompvare: function () {
+        onComplete: function () {
             TweenMax.set(messageImage, {
-                display: 'none',
+                display: 'none'
             });
             TweenMax.set(carrierImage, {
-                display: 'none',
+                display: 'none'
             });
             TweenMax.fromTo(encryptedImage, 1, {
                 height: '10vh',
                 top: '40vh',
                 width: '40vh',
-                right: '40%',
+                right: '40%'
             }, {
                 autoAlpha: 1,
                 ease: Back.easeOut,
@@ -228,11 +228,11 @@ function embedImage() {
                 width: '50vh',
                 right: '37%',
                 boxShadow: '0 0 5px 5px #9feaf9',
-                onCompvare: function () {
+                onComplete: function () {
                     encryptedImage.src = carrierImagePath;
                     mergeButton.style.display = 'none';
                     downloadButton.style.display = 'block';
-                },
+                }
             });
         },
     });

@@ -9,8 +9,8 @@ module.exports = {
         dialog.showOpenDialog({
             filters: [{
                 name: 'Images',
-                extensions: ['jpg', 'png', 'bmp'],
-            }],
+                extensions: ['jpg', 'png', 'bmp']
+            }]
 
         }, function (fileNames) {
             if (fileNames === undefined) return;
