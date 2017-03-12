@@ -2,43 +2,33 @@
 
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="../css/embedImage.css">
+    <link rel="stylesheet" href="../css/embedText.css">
     <link rel="stylesheet" href="../../bower_components/bootstrap/dist/css/bootstrap.min.css">
 </head>
 
 <body>
     <div class="container" id="inputPanel">
         <div class="col-xs-12">
-            <div id='panel-colorPlane'>
-                Color Plane:&nbsp;&nbsp;
-                <input type="radio" id="radio-plane-red" name="colorPlane" value=0 />
-                <label for="radio-plane-red"><span></span>Red</label>
-                <input type="radio" id="radio-plane-green" name="colorPlane" value=1/>
-                <label for="radio-plane-green"><span></span>Green</label>
-                <input type="radio" id="radio-plane-blue" name="colorPlane" value=2/>
-                <label for="radio-plane-blue"><span></span>Blue</label>
-            </div>
-            <div id='panel-colorIndex'>
-                Color Index:&nbsp;&nbsp;
-                <input type="radio" id="radio-index-0" name="colorIndex" value=0 />
-                <label for="radio-index-0"><span></span>0</label>&nbsp;&nbsp;
-                <input type="radio" id="radio-index-1" name="colorIndex" value=1/>
-                <label for="radio-index-1"><span></span>1</label>&nbsp;&nbsp;&nbsp;
-                <input type="radio" id="radio-index-2" name="colorIndex" value=2/>
-                <label for="radio-index-2"><span></span>2</label>&nbsp;&nbsp;&nbsp;&nbsp;
-                <input type="radio" id="radio-index-3" name="colorIndex" value=3/>
-                <label for="radio-index-3"><span></span>3</label>
+            <div id='panel-encryption'>
+                <div id='panel-requestEncryption'>
+                    <input type="radio" id="radio-encryption" value=0 />
+                    <label for="radio-encryption"><span></span>Encrypt with AES ?</label>
+                </div>
+                <div id='panel-enterKey'>
+                    Key: <input type="text" id="input-key" />
+                    <img src="../resources/delete-button.svg" id="btn-cancel"/>
+                </div>
             </div>
             <img id="img-carrier" class="image" src="" alt="Upload Carrier Image">
-            <img id="img-message" class="image" src="" alt="Upload Message Image">
             <img id="img-encrypted" class="image" src="" alt="Encrypted Image">
-            <button id="btn-merge">Merge</button>
+            <button id="btn-hide">Hide</button>
             <button id="btn-download">Download</button>
+            <textarea id="text-message" placeholder="# Enter the message you wish to hide"></textarea>
         </div>
     </div>
     <script src="../../bower_components/gsap/src/uncompressed/TweenMax.js"></script>
     <script src="../../bower_components/jquery/dist/jquery.js"></script>
-    <script src="../js/embedImage.js"></script>
+    <script src="../js/embedText.js"></script>
 </body>
 
 </html>

@@ -1,6 +1,7 @@
 import binascii
 import numpy as np
 from PIL import Image
+from encryption import AESCipher
 import sys
 
 

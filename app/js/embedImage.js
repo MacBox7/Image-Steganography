@@ -60,9 +60,9 @@ carrierImage.addEventListener('mouseout', function () {
 });
 
 inputPanel.addEventListener('mouseover', function () {
-    TweenMax.set(mergeButton, {
-        clearProps: 'height, width, boxShadow'
-    });
+    // TweenMax.set(mergeButton, {
+    //     clearProps: 'height, width, boxShadow'
+    // });
     TweenMax.set(carrierImage, {
         clearProps: 'height, width, boxShadow'
     });
