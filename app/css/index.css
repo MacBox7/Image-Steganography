@@ -1,0 +1,45 @@
+button:focus {
+    outline: 0;
+}
+
+#inputPanel {
+    background: #2b2e3b;
+    height: 100%;
+    display: block;
+    width: 100%;
+    position: fixed;
+    z-index: 1;
+}
+
+.image {
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 30vh !important;
+    width: 25vw !important;
+}
+
+#heading-optionName {
+    opacity: 1;
+    color: #9feaf9;
+    position: absolute;
+    left: 40%;
+    font-size: 6vh;
+    top: 10vh;
+}
+
+#img-embedImage {
+    left: 5vw;
+}
+
+#img-extractImage {
+    left: 26.5vw;
+}
+
+#img-embedText {
+    right: 26.5vw;
+}
+
+#img-extractText {
+    right: 5vw;
+}

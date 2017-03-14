@@ -15,7 +15,7 @@ input:focus {
 #img-carrier {
     top: 20vh;
     display: block;
-    right: 60%;
+    left: 14%;
 }
 
 #img-encrypted {
@@ -79,7 +79,7 @@ input:focus {
     width: 50vh;
     color: #9feaf9;
     top: 20vh;
-    right: 13%;
+    left: 61%;
     cursor: pointer;
     cursor: hand;
     border: 2px solid #9feaf9;
@@ -174,4 +174,24 @@ input[type="radio"]:checked+label span {
 #panel-requestEncryption {
     display: block;
     font-size: 1.6vw;
+}
+
+#panel-requestEncryption > label {
+    cursor: hand;
+}
+
+#panel-colorIndex {
+    color: #9feaf9;
+    font-size: 2.4vh;
+    position: absolute;
+    top: 4vh;
+    left: 61%;
+}
+
+#img-home {
+    position: absolute;
+    height: 7vh;
+    width: 7vw;
+    top: 2vh;
+    left: -1vw;
 }

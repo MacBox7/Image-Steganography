@@ -22,20 +22,9 @@ messageImage.addEventListener('click', function () {
     });
 });
 
-messageImage.addEventListener('mouseover', function () {
-    TweenMax.to(this, 0.1, {
-        boxShadow: '0 0 10px 10px #9feaf9',
-        height: '+=10',
-        width: '+=10',
-        ease: Linear.easeNone
-    });
-});
+messageImage.addEventListener('mouseover', animationOnFocus);
 
-messageImage.addEventListener('mouseout', function () {
-    TweenMax.set(this, {
-        clearProps: 'all'
-    });
-});
+messageImage.addEventListener('mouseout', clearProps);
 
 carrierImage.addEventListener('click', function () {
     utility.openFile(function (filePath) {
@@ -44,25 +33,14 @@ carrierImage.addEventListener('click', function () {
     });
 });
 
-carrierImage.addEventListener('mouseover', function () {
-    TweenMax.to(this, 0.1, {
-        boxShadow: '0 0 10px 10px #9feaf9',
-        height: '+=10',
-        width: '+=10',
-        ease: Linear.easeNone
-    });
-});
+carrierImage.addEventListener('mouseover', animationOnFocus);
 
-carrierImage.addEventListener('mouseout', function () {
-    TweenMax.set(this, {
-        clearProps: 'all'
-    });
-});
+carrierImage.addEventListener('mouseout', clearProps);
 
 inputPanel.addEventListener('mouseover', function () {
-    // TweenMax.set(mergeButton, {
-    //     clearProps: 'height, width, boxShadow'
-    // });
+    TweenMax.set(mergeButton, {
+        clearProps: 'height, width, boxShadow'
+    });
     TweenMax.set(carrierImage, {
         clearProps: 'height, width, boxShadow'
     });
@@ -75,35 +53,13 @@ downloadButton.addEventListener('click', function () {
     utility.saveFile(carrierImagePath);
 });
 
-downloadButton.addEventListener('mouseover', function () {
-    TweenMax.to(this, 0.1, {
-        height: '+=5',
-        width: '+=5',
-        boxShadow: '0 0 5px 5px #9feaf9',
-        ease: Linear.easeNone
-    });
-});
+downloadButton.addEventListener('mouseover', animationOnFocus);
 
-downloadButton.addEventListener('mouseout', function () {
-    TweenMax.set(this, {
-        clearProps: 'height, width, boxShadow'
-    });
-});
+downloadButton.addEventListener('mouseout', clearProps);
 
-mergeButton.addEventListener('mouseover', function () {
-    TweenMax.to(this, 0.1, {
-        height: '+=5',
-        width: '+=5',
-        boxShadow: '0 0 5px 5px #9feaf9',
-        ease: Linear.easeNone
-    });
-});
+mergeButton.addEventListener('mouseover', animationOnFocus);
 
-mergeButton.addEventListener('mouseout', function () {
-    TweenMax.set(this, {
-        clearProps: 'all'
-    });
-});
+mergeButton.addEventListener('mouseout', clearProps);
 
 mergeButton.addEventListener('click', function () {
     colorIndex = getRadioVal('colorIndex');
@@ -164,6 +120,21 @@ mergeButton.addEventListener('click', function () {
     });
 });
 
+function animationOnFocus() {
+    TweenMax.to(this, 0.1, {
+        height: '+=5',
+        width: '+=5',
+        boxShadow: '0 0 5px 5px #9feaf9',
+        ease: Linear.easeNone
+    });
+}
+
+function clearProps() {
+    TweenMax.set(this, {
+        clearProps: 'all'
+    });
+}
+
 function getRadioVal(name) {
     var val;
     var radios = document.getElementsByName(name);
@@ -182,6 +153,9 @@ function embedImage() {
     messageImage.alt = '';
     carrierImage.src = '';
     carrierImage.alt = '';
+
+    carrierImage.removeEventListener('mouseover', animationOnFocus);
+    messageImage.removeEventListener('mouseover', animationOnFocus);
 
     TweenMax.to(panelColorIndex, 1, {
         autoAlpha: 0

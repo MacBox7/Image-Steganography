@@ -126,3 +126,11 @@ button:focus {
     color: #9feaf9;
     background: none;
 }
+
+#img-home {
+    position: absolute;
+    height: 7vh;
+    width: 7vw;
+    top: 2vh;
+    left: -1vw;
+}

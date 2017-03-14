@@ -12,6 +12,7 @@ var inputKey = document.getElementById('input-key');
 var radioEncryption = document.getElementById('radio-encryption');
 var panelRequestEncryption = document.getElementById('panel-requestEncryption');
 var panelEnterKey = document.getElementById('panel-enterKey');
+var panelColorIndex = document.getElementById('panel-colorIndex');
 
 var carrierImagePath;
 
@@ -22,20 +23,9 @@ carrierImage.addEventListener('click', function () {
     });
 });
 
-carrierImage.addEventListener('mouseover', function () {
-    TweenMax.to(this, 0.1, {
-        boxShadow: '0 0 10px 10px #9feaf9',
-        height: '+=10',
-        width: '+=10',
-        ease: Linear.easeNone
-    });
-});
+carrierImage.addEventListener('mouseover', animationOnFocus);
 
-carrierImage.addEventListener('mouseout', function () {
-    TweenMax.set(this, {
-        clearProps: 'all'
-    });
-});
+carrierImage.addEventListener('mouseout', clearProps);
 
 inputPanel.addEventListener('mouseover', function () {
     TweenMax.set(hideButton, {
@@ -59,35 +49,13 @@ downloadButton.addEventListener('click', function () {
     utility.saveFile(carrierImagePath);
 });
 
-downloadButton.addEventListener('mouseover', function () {
-    TweenMax.to(this, 0.1, {
-        height: '+=5',
-        width: '+=5',
-        boxShadow: '0 0 5px 5px #9feaf9',
-        ease: Linear.easeNone
-    });
-});
+downloadButton.addEventListener('mouseover', animationOnFocus);
 
-downloadButton.addEventListener('mouseout', function () {
-    TweenMax.set(this, {
-        clearProps: 'height, width, boxShadow'
-    });
-});
+downloadButton.addEventListener('mouseout', clearProps);
 
-hideButton.addEventListener('mouseover', function () {
-    TweenMax.to(this, 0.1, {
-        height: '+=5',
-        width: '+=5',
-        boxShadow: '0 0 5px 5px #9feaf9',
-        ease: Linear.easeNone
-    });
-});
+hideButton.addEventListener('mouseover', animationOnFocus);
 
-hideButton.addEventListener('mouseout', function () {
-    TweenMax.set(this, {
-        clearProps: 'all'
-    });
-});
+hideButton.addEventListener('mouseout', clearProps);
 
 hideButton.addEventListener('click', function () {
     var message = messageTextArea.value;
@@ -176,10 +144,27 @@ cancelButton.addEventListener('click', function () {
     });
 });
 
+function animationOnFocus() {
+    TweenMax.to(this, 0.1, {
+        height: '+=5',
+        width: '+=5',
+        boxShadow: '0 0 5px 5px #9feaf9',
+        ease: Linear.easeNone
+    });
+}
+
+function clearProps() {
+    TweenMax.set(this, {
+        clearProps: 'all'
+    });
+}
+
 function embedText() {
     carrierImage.src = '';
     carrierImage.alt = '';
     messageTextArea.value = ' ';
+
+    carrierImage.removeEventListener('mouseover', animationOnFocus);
 
     TweenMax.to(panelRequestEncryption, 1, {
         autoAlpha: 0
@@ -189,23 +174,25 @@ function embedText() {
         autoAlpha: 0
     });
 
+    TweenMax.to(panelColorIndex, 1, {
+        autoAlpha: 0
+    });
+
     TweenMax.to(messageTextArea, 1, {
         height: '10vh',
         top: '40vh',
         ease: Back.easeOut,
         width: '40vh',
-        right: '40%',
+        left: '38%',
         background: '#2b2e3b'
     });
 
-    TweenMax.fromTo(carrierImage, 1, {
-        right: '80%',
-    }, {
+    TweenMax.to(carrierImage, 1, {
         height: '10vh',
         top: '40vh',
         ease: Back.easeOut,
         width: '40vh',
-        right: '40%',
+        left: '35%',
         onComplete: function () {
             TweenMax.set(messageTextArea, {
                 display: 'none'
