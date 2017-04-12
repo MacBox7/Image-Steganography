@@ -44,44 +44,47 @@ class ImageSteganography:
             number |= mask
         return number
 
-    def hide_in_pixel(self, path, message, index, output_image):
+    def hide_in_pixel(self, path, message, index, plane, output_image):
         matrix = self.image_to_matrix(path)
         bit_message = self.text_to_bits(message)
-        message_size = len(bit_message)
-        message_counter = 0
-        finish_flag = False
-
-        for row_idx, row in enumerate(matrix):
-            for pixel_idx, pixel in enumerate(row):
-                for color_idx, color in enumerate(pixel):
-
-                    if(message_counter == message_size):
-                        finish_flag = True
-                        break
-                    stegano_bit = True if bit_message[
-                        message_counter] == 1 else False
-                    message_counter += 1
-                    # Setting LSB to 1 or 0
-                    matrix[row_idx][pixel_idx][
-                        color_idx] = self.set_bit(color, index, stegano_bit)
-
-                if(finish_flag == True):
-                    break
-            if(finish_flag == True):
-                break
-
-        stegano_image = self.matrix_to_image(matrix, output_image)
+        flatten_matrix = matrix.reshape(-1, 3)
+        inverted_plane = []
+        operational_list = flatten_matrix[:, plane].flatten()
+        result_matrix = np.ones((flatten_matrix.shape[0], 1))
+        operational_list_index = (operational_list & (
+            1 << index)) >> index  # Get index bit of a number
+        bit_message = np.append(
+            bit_message, operational_list_index[len(bit_message):])
+        # number ^= (-x ^ number) & (1 << n)
+        operational_list_temp = (-bit_message ^
+                                 operational_list) & (1 << index)
+        # Set n bit of a number to x
+        operational_list = operational_list ^ operational_list_temp
+        operational_matrix = operational_list.reshape(-1, len(plane))
+        temp_index = 0
+        for plane_index in range(3):
+            if plane_index in plane:
+                result_matrix = np.column_stack(
+                    (result_matrix, np.reshape(operational_matrix[:, temp_index], (-1, 1))))
+                temp_index += 1
+            else:
+                result_matrix = np.column_stack(
+                    (result_matrix, np.reshape(flatten_matrix[:, plane_index], (-1, 1))))
+        result_matrix = np.reshape(
+            result_matrix[:, 1:].flatten(), matrix.shape)
+        result_matrix = result_matrix.astype('uint8')
+        stegano_image = self.matrix_to_image(result_matrix, output_image)
         return stegano_image
 
-    def extract_info_from_lsb(self, path):
+    def extract_info_from_lsb(self, path, plane, index):
         lsb_message_result = []
         matrix = self.image_to_matrix(path)
-        # make sure the data type is integer (redundant)
-        matrix = matrix.astype(int)
-        lsb_matrix = matrix % 2  # modulo two to get the LSB of each element
-        lsb_message_result = lsb_matrix.ravel()  # flatten to a 1D array
+        flatten_matrix = matrix.reshape(-1, 3)[:, plane].flatten()
+        lsb_message_result = (flatten_matrix & (1 << index)) >> index
         lsb_message_result = lsb_message_result.tolist()
-        lsb_message_result = self.text_from_bits(lsb_message_result)
+        end_index = (len(lsb_message_result) / 8) * 8
+        lsb_message_result = self.text_from_bits(
+            lsb_message_result[:end_index])
         return lsb_message_result
 
     def embed(self, cover_file, secret_file, color_plane, pixel_bit):
